@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusLoop | Your Campus. Your Opportunities. One Loop.</title>
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --surface-color: #ffffff;
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --border-radius-lg: 12px;
+            --border-radius-md: 8px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.2s ease-in-out;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--surface-color);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-color);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Layout & Views */
+        .view-section {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Navigation (Landing) */
+        .landing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Landing Hero */
+        .hero {
+            text-align: center;
+            padding: 6rem 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: var(--text-muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Landing Features */
+        .features {
+            padding: 4rem 5%;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: #e0e7ff;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+        }
+
+        /* Sidebar (App) */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .sidebar .logo {
+            margin-bottom: 2rem;
+            padding-left: 0.5rem;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius-md);
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #e0e7ff;
+            color: var(--primary-color);
+        }
+
+        .sidebar-menu svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Topbar (App) */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 0.5rem 1rem;
+            width: 300px;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            background: transparent;
+            margin-left: 0.5rem;
+            width: 100%;
+            color: var(--text-dark);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Dashboard Cards */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Content Grids */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .item-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .item-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .item-badge {
+            background: #e0e7ff;
+            color: var(--primary-color);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .item-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-org {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .item-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            background: var(--surface-color);
+            outline: none;
+        }
+
+        /* Settings */
+        .settings-form {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            border: 1px solid var(--border-color);
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            outline: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Notification Toast */
+        #toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app-layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 1rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar-menu {
+                display: none;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .sidebar-menu.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .topbar {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Landing Page View -->
+    <div id="view-landing" class="view-section active">
+        <nav class="landing-nav">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                CampusLoop
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="app.login()">Get Started</button>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <h1>Your Campus. Your Opportunities.<br>One Loop.</h1>
+            <p>60% of students spend over 5 minutes searching for basic campus info. Stop missing out. Find internships,
+                events, clubs, and placements all in one place.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="app.login()">Explore Opportunities</button>
+                <button class="btn btn-secondary"
+                    onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Discover
+                    Features</button>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Everything you need, right here</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                        </svg></div>
+                    <h3>Internships & Placements</h3>
+                    <p>Verified academic and career opportunities tailored to your profile.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                            <line x1="16" y1="2" x2="16" y2="6" />
+                            <line x1="8" y1="2" x2="8" y2="6" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg></div>
+                    <h3>Campus Events</h3>
+                    <p>Never miss a workshop, seminar, or fest. Track and register easily.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg></div>
+                    <h3>Clubs & Mentorship</h3>
+                    <p>Join student clubs and connect with alumni mentors to grow your network.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Main App Layout (Hidden until login) -->
+    <div id="app-wrapper" class="app-layout" style="display: none;">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                CampusLoop
+            </div>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.sidebar-menu').classList.toggle('show')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+            <nav class="sidebar-menu">
+                <a href="#" onclick="app.navigate('dashboard')" id="nav-dashboard" class="active">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg> Overview
+                </a>
+                <a href="#" onclick="app.navigate('opportunities')" id="nav-opportunities">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                    </svg> Opportunities
+                </a>
+                <a href="#" onclick="app.navigate('events')" id="nav-events">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg> Events
+                </a>
+                <a href="#" onclick="app.navigate('clubs')" id="nav-clubs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg> Clubs & Mentors
+                </a>
+                <a href="#" onclick="app.navigate('saved')" id="nav-saved">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg> Saved Items
+                </a>
+                <a href="#" onclick="app.navigate('settings')" id="nav-settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                    </svg> Settings
+                </a>
+                <a href="#" onclick="app.logout()" style="margin-top: auto; color: var(--danger-color);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg> Sign Out
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div class="search-bar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)"
+                        stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input type="text" placeholder="Search opportunities, events..."
+                        onkeyup="app.handleGlobalSearch(this.value)">
+                </div>
+                <div class="user-menu">
+                    <button class="btn btn-secondary" onclick="app.showToast('No new notifications')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                    </button>
+                    <div class="avatar" id="user-avatar">MK</div>
+                </div>
+            </header>
+
+            <!-- Views -->
+            <div id="view-dashboard" class="view-section">
+                <h2>Welcome back, Manmath!</h2>
+                <p style="margin-bottom: 2rem;">Here is your campus overview.</p>
+
+                <div class="summary-cards">
+                    <div class="stat-card">
+                        <h3>New Opportunities</h3>
+                        <div class="value" id="stat-opps">12</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Upcoming Events</h3>
+                        <div class="value" id="stat-events">4</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Saved Items</h3>
+                        <div class="value" id="stat-saved">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Approaching Deadlines</h3>
+                        <div class="value" style="color: var(--warning-color);">2</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3>Recommended for You</h3>
+                    <button class="btn btn-outline" onclick="app.navigate('opportunities')">View All</button>
+                </div>
+                <div class="card-grid" id="dashboard-opps-container"></div>
+            </div>
+
+            <div id="view-opportunities" class="view-section">
+                <h2>Opportunities</h2>
+                <p>Find internships, placements, and hackathons.</p>
+                <div class="filters" style="margin-top: 1.5rem;">
+                    <select class="filter-select" id="filter-type" onchange="app.renderOpportunities()">
+                        <option value="all">All Types</option>
+                        <option value="Internship">Internships</option>
+                        <option value="Placement">Placements</option>
+                        <option value="Hackathon">Hackathons</option>
+                    </select>
+                    <select class="filter-select" id="filter-mode" onchange="app.renderOpportunities()">
+                        <option value="all">All Modes</option>
+                        <option value="Remote">Remote</option>
+                        <option value="On-site">On-site</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+                <div class="card-grid" id="opportunities-container"></div>
+            </div>
+
+            <div id="view-events" class="view-section">
+                <h2>Campus Events</h2>
+                <p>Workshops, seminars, and fests happening soon.</p>
+                <div class="card-grid" id="events-container" style="margin-top: 1.5rem;"></div>
+            </div>
+
+            <div id="view-clubs" class="view-section">
+                <h2>Clubs & Mentorship</h2>
+                <p>Engage with the community and find guidance.</p>
+
+                <div class="section-header">
+                    <h3>Student Clubs</h3>
+                </div>
+                <div class="card-grid" id="clubs-container"></div>
+
+                <div class="section-header">
+                    <h3>Alumni Mentors</h3>
+                </div>
+                <div class="card-grid" id="mentors-container"></div>
+            </div>
+
+            <div id="view-saved" class="view-section">
+                <h2>Saved Items</h2>
+                <p>Opportunities and events you've bookmarked.</p>
+                <div class="card-grid" id="saved-container" style="margin-top: 1.5rem;"></div>
+            </div>
+
+            <div id="view-settings" class="view-section">
+                <h2>Profile Settings</h2>
+                <p style="margin-bottom: 2rem;">Manage your preferences and alerts.</p>
+
+                <div class="settings-form">
+                    <form onsubmit="event.preventDefault(); app.saveSettings();">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="set-name" value="Manmath Kaira">
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Interest</label>
+                            <select id="set-interest">
+                                <option value="Tech">Technology & Engineering</option>
+                                <option value="Business">Business & Management</option>
+                                <option value="Design">Design & Arts</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Notifications</label>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="set-notif-email" checked> <label for="set-notif-email"
+                                    style="margin:0; font-weight:normal;">Email Alerts</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="set-notif-deadline" checked> <label for="set-notif-deadline"
+                                    style="margin:0; font-weight:normal;">Deadline Reminders</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Preferences</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Global Toast Notification -->
+    <div id="toast">Message here</div>
+
+    <script>
+        const mockData = {
+            opportunities: [
+                { id: 'o1', title: 'Software Engineering Intern', org: 'TechCorp Solutions', type: 'Internship', mode: 'Remote', deadline: 'Oct 25, 2026' },
+                { id: 'o2', title: 'Marketing Associate Trainee', org: 'Global Media', type: 'Placement', mode: 'On-site', deadline: 'Oct 30, 2026' },
+                { id: 'o3', title: 'AI Innovation Hackathon', org: 'GSFC University', type: 'Hackathon', mode: 'Hybrid', deadline: 'Nov 5, 2026' },
+                { id: 'o4', title: 'Data Analytics Intern', org: 'FinServe Data', type: 'Internship', mode: 'Remote', deadline: 'Nov 12, 2026' }
+            ],
+            events: [
+                { id: 'e1', title: 'Resume Building Workshop', org: 'Placement Cell', date: 'Oct 22, 2026', venue: 'Auditorium A' },
+                { id: 'e2', title: 'Tech Symposium 2026', org: 'IT Department', date: 'Nov 1, 2026', venue: 'Main Campus' }
+            ],
+            clubs: [
+                { id: 'c1', title: 'Coding Club', desc: 'Algorithms, development, and peer programming.', members: 120 },
+                { id: 'c2', title: 'Entrepreneurship Cell', desc: 'Incubating startup ideas and networking.', members: 85 }
+            ],
+            mentors: [
+                { id: 'm1', name: 'Priya Sharma', role: 'Sr. SDE at Amazon', expertise: 'System Design, Interview Prep' },
+                { id: 'm2', name: 'Rahul Patel', role: 'Product Manager', expertise: 'Product Strategy, Agile' }
+            ]
+        };
+
+        const app = {
+            state: {
+                view: 'landing',
+                isLoggedIn: false,
+                saved: JSON.parse(localStorage.getItem('campusLoopSaved')) || [],
+                registered: JSON.parse(localStorage.getItem('campusLoopReg')) || [],
+                joinedClubs: JSON.parse(localStorage.getItem('campusLoopClubs')) || []
+            },
+
+            init() {
+                // Check demo login state
+                if (localStorage.getItem('campusLoopLoggedIn') === 'true') {
+                    this.login(true);
+                }
+            },
+
+            saveState() {
+                localStorage.setItem('campusLoopSaved', JSON.stringify(this.state.saved));
+                localStorage.setItem('campusLoopReg', JSON.stringify(this.state.registered));
+                localStorage.setItem('campusLoopClubs', JSON.stringify(this.state.joinedClubs));
+            },
+
+            login(skipNav = false) {
+                this.state.isLoggedIn = true;
+                localStorage.setItem('campusLoopLoggedIn', 'true');
+                document.getElementById('view-landing').classList.remove('active');
+                document.getElementById('app-wrapper').style.display = 'flex';
+                if (!skipNav) this.navigate('dashboard');
+                else this.navigate(this.state.view !== 'landing' ? this.state.view : 'dashboard');
+
+                // Update dashboard stats
+                document.getElementById('stat-saved').textContent = this.state.saved.length;
+            },
+
+            logout() {
+                this.state.isLoggedIn = false;
+                localStorage.removeItem('campusLoopLoggedIn');
+                document.getElementById('app-wrapper').style.display = 'none';
+                document.getElementById('view-landing').classList.add('active');
+                this.showToast('Signed out successfully');
+            },
+
+            navigate(viewId) {
+                this.state.view = viewId;
+                // Update UI Views
+                document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+                document.getElementById(`view-${viewId}`).classList.add('active');
+
+                // Update Sidebar
+                document.querySelectorAll('.sidebar-menu a').forEach(el => el.classList.remove('active'));
+                const navLink = document.getElementById(`nav-${viewId}`);
+                if (navLink) navLink.classList.add('active');
+
+                // Render specific view content
+                if (viewId === 'dashboard') this.renderDashboard();
+                if (viewId === 'opportunities') this.renderOpportunities();
+                if (viewId === 'events') this.renderEvents();
+                if (viewId === 'clubs') this.renderClubsAndMentors();
+                if (viewId === 'saved') this.renderSaved();
+
+                // Close mobile menu if open
+                document.querySelector('.sidebar-menu').classList.remove('show');
+            },
+
+            toggleSave(id) {
+                const index = this.state.saved.indexOf(id);
+                if (index > -1) {
+                    this.state.saved.splice(index, 1);
+                    this.showToast('Removed from saved items');
+                } else {
+                    this.state.saved.push(id);
+                    this.showToast('Saved successfully');
+                }
+                this.saveState();
+                document.getElementById('stat-saved').textContent = this.state.saved.length;
+
+                // Re-render current view to update button states
+                if (this.state.view === 'opportunities') this.renderOpportunities();
+                if (this.state.view === 'dashboard') this.renderDashboard();
+                if (this.state.view === 'saved') this.renderSaved();
+            },
+
+            registerEvent(id) {
+                if (!this.state.registered.includes(id)) {
+                    this.state.registered.push(id);
+                    this.saveState();
+                    this.showToast('Successfully registered for event');
+                    this.renderEvents();
+                }
+            },
+
+            toggleClub(id) {
+                const index = this.state.joinedClubs.indexOf(id);
+                if (index > -1) {
+                    this.state.joinedClubs.splice(index, 1);
+                    this.showToast('Left the club');
+                } else {
+                    this.state.joinedClubs.push(id);
+                    this.showToast('Joined club successfully');
+                }
+                this.saveState();
+                this.renderClubsAndMentors();
+            },
+
+            requestMentorship() {
+                this.showToast('Mentorship request sent!');
+            },
+
+            saveSettings() {
+                const name = document.getElementById('set-name').value;
+                document.getElementById('user-avatar').textContent = name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                this.showToast('Preferences saved');
+            },
+
+            showToast(message) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            },
+
+            handleGlobalSearch(query) {
+                if (query.length > 2) {
+                    if (this.state.view !== 'opportunities') this.navigate('opportunities');
+                    const filtered = mockData.opportunities.filter(o =>
+                        o.title.toLowerCase().includes(query.toLowerCase()) ||
+                        o.org.toLowerCase().includes(query.toLowerCase())
+                    );
+                    this._renderOppCards(filtered, 'opportunities-container');
+                } else if (query.length === 0) {
+                    this.renderOpportunities();
+                }
+            },
+
+            // Render Functions
+            _renderOppCards(data, containerId) {
+                const container = document.getElementById(containerId);
+                if (data.length === 0) {
+                    container.innerHTML = `<div class="empty-state">No opportunities found.</div>`;
+                    return;
+                }
+                container.innerHTML = data.map(opp => {
+                    const isSaved = this.state.saved.includes(opp.id);
+                    return `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-badge">${opp.type}</span>
+                            <button onclick="app.toggleSave('${opp.id}')" style="color: ${isSaved ? 'var(--primary-color)' : 'var(--text-muted)'};">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            </button>
+                        </div>
+                        <div>
+                            <div class="item-title">${opp.title}</div>
+                            <div class="item-org">${opp.org}</div>
+                        </div>
+                        <div class="item-meta">
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${opp.mode}</span>
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${opp.deadline}</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-primary" style="flex:1;" onclick="app.showToast('Demo Application Started')">Apply Now</button>
+                        </div>
+                    </div>
+                `}).join('');
+            },
+
+            renderDashboard() {
+                this._renderOppCards(mockData.opportunities.slice(0, 2), 'dashboard-opps-container');
+            },
+
+            renderOpportunities() {
+                const typeFilter = document.getElementById('filter-type').value;
+                const modeFilter = document.getElementById('filter-mode').value;
+
+                let filtered = mockData.opportunities;
+                if (typeFilter !== 'all') filtered = filtered.filter(o => o.type === typeFilter);
+                if (modeFilter !== 'all') filtered = filtered.filter(o => o.mode === modeFilter);
+
+                this._renderOppCards(filtered, 'opportunities-container');
+            },
+
+            renderEvents() {
+                const container = document.getElementById('events-container');
+                container.innerHTML = mockData.events.map(ev => {
+                    const isReg = this.state.registered.includes(ev.id);
+                    return `
+                    <div class="item-card">
+                        <div class="item-header">
+                            <span class="item-badge" style="background:#fce7f3; color:#db2777;">Campus Event</span>
+                        </div>
+                        <div>
+                            <div class="item-title">${ev.title}</div>
+                            <div class="item-org">${ev.org}</div>
+                        </div>
+                        <div class="item-meta">
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> ${ev.date}</span>
+                            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${ev.venue}</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn ${isReg ? 'btn-secondary' : 'btn-primary'}" style="flex:1;" onclick="app.registerEvent('${ev.id}')" ${isReg ? 'disabled' : ''}>
+                                ${isReg ? 'Registered' : 'Register Now'}
+                            </button>
+                        </div>
+                    </div>
+                `}).join('');
+            },
+
+            renderClubsAndMentors() {
+                const clubsCont = document.getElementById('clubs-container');
+                clubsCont.innerHTML = mockData.clubs.map(c => {
+                    const isJoined = this.state.joinedClubs.includes(c.id);
+                    return `
+                    <div class="item-card">
+                        <div>
+                            <div class="item-title">${c.title}</div>
+                            <div class="item-org">${c.members} Members</div>
+                            <p style="font-size:0.875rem; margin-top:0.5rem;">${c.desc}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn ${isJoined ? 'btn-secondary' : 'btn-outline'}" style="flex:1;" onclick="app.toggleClub('${c.id}')">
+                                ${isJoined ? 'Leave Club' : 'Join Club'}
+                            </button>
+                        </div>
+                    </div>
+                `}).join('');
+
+                const mentorsCont = document.getElementById('mentors-container');
+                mentorsCont.innerHTML = mockData.mentors.map(m => `
+                    <div class="item-card">
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="avatar" style="background:var(--text-dark);">${m.name.charAt(0)}</div>
+                            <div>
+                                <div class="item-title" style="font-size:1rem;">${m.name}</div>
+                                <div class="item-org">${m.role}</div>
+                            </div>
+                        </div>
+                        <div style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1rem;">Expertise: ${m.expertise}</div>
+                        <div class="item-actions" style="margin-top:auto;">
+                            <button class="btn btn-primary" style="flex:1;" onclick="app.requestMentorship()">Request Mentorship</button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            renderSaved() {
+                const savedData = mockData.opportunities.filter(o => this.state.saved.includes(o.id));
+                const container = document.getElementById('saved-container');
+                if (savedData.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1/-1;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                            <h3>No saved items yet</h3>
+                            <p>Browse opportunities and click the bookmark icon to save them here.</p>
+                            <button class="btn btn-primary" style="margin-top:1rem;" onclick="app.navigate('opportunities')">Explore Opportunities</button>
+                        </div>
+                    `;
+                    return;
+                }
+                this._renderOppCards(savedData, 'saved-container');
+            }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            app.init();
+        });
+    </script>
+</body>
+
+</html>
